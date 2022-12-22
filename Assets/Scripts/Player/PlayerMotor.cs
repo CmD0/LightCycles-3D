@@ -14,14 +14,14 @@ public class PlayerMotor : MonoBehaviour
 
     private const float BACKWARDS_SPEED_DIVIDER = 4f;
 
-    private CharacterController playerController;
+    private PlayerController playerController;
     private Vector3 velocity;
     private bool isGrounded;
     private float currentTurnAngle = 0f;
 
     void Start()
     {
-        playerController = GetComponent<CharacterController>();
+        playerController = GetComponent<PlayerController>();
     }
 
     void Update()
@@ -78,13 +78,6 @@ public class PlayerMotor : MonoBehaviour
             // slow down faster when going backwards
             velocity.z += deceleration * BACKWARDS_SPEED_DIVIDER;
             velocity.z = Mathf.Min(velocity.z, 0);
-        }
-
-        // apply gravity
-        velocity.y += gravity * Time.deltaTime;
-        if (isGrounded && velocity.y < 0)
-        {
-            velocity.y = -2f;
         }
 
         // apply velocity to controller, and adjust for the player's rotation
